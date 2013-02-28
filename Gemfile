@@ -38,3 +38,6 @@ gem 'jquery-rails'
 # gem 'debugger'
 
 gem 'authlogic'
+gem 'cancan'
+gem 'quiet_assets', group: :development
+gem 'thin', group: :development

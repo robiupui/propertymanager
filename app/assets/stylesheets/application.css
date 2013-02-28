@@ -345,12 +345,12 @@ ul.style3 .first .date
 
 
 
-div#error_explanation {
+div#error {
 	color: red;
 }
 
-div#error_explanation h2 {
-	font-family:'Open Sans', sans-serif;
+div#error h2 {
+	color: red;
 	font-size: 16px;
 }
 

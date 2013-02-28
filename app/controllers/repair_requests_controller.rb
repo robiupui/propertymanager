@@ -2,7 +2,11 @@ class RepairRequestsController < ApplicationController
   # GET /repair_requests
   # GET /repair_requests.json
   def index
-    @repair_requests = RepairRequest.all
+    if current_user.has_role? :manager
+      @repair_requests = RepairRequest.all
+    else
+      @repair_requests = RepairRequest.where(:submitter_id => current_user)
+    end
 
     respond_to do |format|
       format.html # index.html.erb
@@ -25,6 +29,8 @@ class RepairRequestsController < ApplicationController
   # GET /repair_requests/new.json
   def new
     @repair_request = RepairRequest.new
+    
+    logger.debug "!!!!!In RepairRequests # new"
 
     respond_to do |format|
       format.html # new.html.erb
@@ -41,7 +47,9 @@ class RepairRequestsController < ApplicationController
   # POST /repair_requests.json
   def create
     @repair_request = RepairRequest.new(params[:repair_request])
-
+    
+    @repair_request.submitter = current_user
+    
     respond_to do |format|
       if @repair_request.save
         format.html { redirect_to @repair_request, notice: 'Repair request was successfully created.' }
@@ -57,6 +65,11 @@ class RepairRequestsController < ApplicationController
   # PUT /repair_requests/1.json
   def update
     @repair_request = RepairRequest.find(params[:id])
+    
+    # check to see if the updater is the original submitter or if it's a responder
+    if @repair_request.submitter != current_user
+      @repair_request.responder = current_user
+    end
 
     respond_to do |format|
       if @repair_request.update_attributes(params[:repair_request])
