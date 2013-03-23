@@ -35,10 +35,17 @@ Released   : 20130128
 					<li class="active"><%= link_to "Home", root_url %></li>
 					
 					<% if current_user %>
-							  <li><%= link_to "Repair Requests", repair_requests_path %></li>
-							  <li><%= link_to "Leases", leases_path %></li>
-					          <li><%= link_to "Edit Profile", edit_user_path(current_user) %></li>
-					          <li><%= link_to "Logout", logout_path %></li>			
+						<li><%= link_to "Rent Payments", payments_path %></li>
+						<li><%= link_to "Repair Requests", repair_requests_path %></li>
+						<li><%= link_to "Leases", leases_path %></li>
+						
+					     <% if current_user.has_role? :manager %> 		
+							  <li><%= link_to "Properties", properties_path %></li>
+							  <li><%= link_to "Units", units_path %></li>
+					     <% end %>
+					     
+					     <li><%= link_to "Edit Profile", edit_user_path(current_user) %></li>
+					     <li><%= link_to "Logout", logout_path %></li>	
 					<% else %>	
 					        <li><%= link_to "Register", new_user_path %></li>
 					        <li><%= link_to "Login", login_path %></li>
@@ -75,19 +82,14 @@ Released   : 20130128
 			-->
 		</div>
 		<div id="sidebar">
-			<h2>Fusce ultrices</h2>
+			<h2>Welcome!</h2>
 			<ul class="style3">
 				<li class="first">
-					<p class="date">01-14-2013</p>
-					<p><a href="#">Vestibulum laoreet lorem sed amet condimentum eget ultrices et mago porttitor nequese blandit.</a></p>
-				</li>
-				<li>
-					<p class="date">01-13-2013</p>
-					<p><a href="#">Vestibulum laoreet lorem sed amet condimentum eget ultrices et mago porttitor nequese blandit.</a></p>
-				</li>
-				<li>
-					<p class="date">01-07-2013</p>
-					<p><a href="#">Vestibulum laoreet lorem sed amet condimentum eget ultrices et mago porttitor nequese blandit.</a></p>
+					<% if current_user %>
+						<p>Welcome back, <%= current_user.username %>!!</p>
+					<% else %>
+						<p>Log In using the link above.</p>
+					<% end %>
 				</li>
 			</ul>
 		</div>

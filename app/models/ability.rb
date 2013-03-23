@@ -13,6 +13,9 @@ class Ability
         can :manage, thisuser
         can :create, RepairRequest
         can [:index, :manage], RepairRequest, :submitter_id => thisuser.id
+        can [:index, :show], Lease do |lease|
+          lease.renters.include? thisuser
+        end
       end
       can :index, User
       can :create, User

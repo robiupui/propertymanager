@@ -10,6 +10,11 @@
       </ul>
     </div>
   <% end %>
+  
+  <div class="field">
+    <%= f.label :property %><br />
+    <%= f.collection_select :property_id, Property.all.collect, :id, :name, :prompt => "Select a property" %>
+  </div>
 
   <div class="field">
     <%= f.label :name %><br />

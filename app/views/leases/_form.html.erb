@@ -11,6 +11,11 @@
     </div>
   <% end %>
 
+
+  <div class="field">
+    <%= f.label :unit %><br />
+    <%= f.collection_select :unit_id, Unit.all.collect, :id, :full_title, :prompt => "Select a unit" %>
+  </div>
   <div class="field">
     <%= f.label :start_date %><br />
     <%= f.date_select :start_date %>
@@ -21,8 +26,23 @@
   </div>
   <div class="field">
     <%= f.label :rent %><br />
-    <%= f.number_field :rent %>
+    $ <%= f.number_field :rent %> <i>Whole numbers only!</i>
   </div>
+  <div class="field">
+    <%= f.label :renters %><br />
+    <% for user in User.find(:all) %>
+	  <div>
+		<%= check_box_tag "lease[renter_ids][]", user.id, @lease.renters.include?(user) %>
+		<%= user.username %>
+      </div>
+    <% end %>
+  </div>
+
+
+
+
+
+
   <div class="actions">
     <%= f.submit %>
   </div>

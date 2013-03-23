@@ -1,8 +1,16 @@
 class LeasesController < ApplicationController
+  
+  load_and_authorize_resource
+  
   # GET /leases
   # GET /leases.json
   def index
-    @leases = Lease.all
+    
+    if current_user.has_role? :manager
+      @leases = Lease.all
+    else
+      @leases = [current_user.lease] #make an array, even though it only has one item in it
+    end
 
     respond_to do |format|
       format.html # index.html.erb

@@ -37,4 +37,16 @@ Propertymanager::Application.configure do
   
   # logger prepend
   #config.log_tags = ["Logger Info"]
+  
+  # Set the activemerchant mode
+  ActiveMerchant::Billing::Base.mode = :test
+
+  # Open an activemerchant gateway
+  ::GATEWAY = ActiveMerchant::Billing::AuthorizeNetGateway.new({
+    :login    => '5f8Ygta6D4UP',
+    :password => '464sH68yF94w8gGR'
+  })
+  
+  
+  
 end

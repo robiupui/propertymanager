@@ -5,6 +5,8 @@
     <th>Start date</th>
     <th>End date</th>
     <th>Rent</th>
+    <th>Renters</th>
+    <th>Unit</th>
     <th></th>
     <th></th>
     <th></th>
@@ -14,7 +16,13 @@
   <tr>
     <td><%= lease.start_date %></td>
     <td><%= lease.end_date %></td>
-    <td><%= lease.rent %></td>
+    <td>$<%= lease.rent %></td>
+    <td>
+    	<% for user in lease.renters %>
+    		<%= user.username %><br />
+    	<% end %>
+    </td>
+    <td><%= lease.unit.full_title %></td>
     <td><%= link_to 'Show', lease %></td>
     <td><%= link_to 'Edit', edit_lease_path(lease) %></td>
     <td><%= link_to 'Destroy', lease, method: :delete, data: { confirm: 'Are you sure?' } %></td>
